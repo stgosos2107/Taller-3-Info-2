@@ -104,4 +104,42 @@ class ProcesadorDICOM:
 
         self.df.to_csv(ruta_salida, index=False)
         print("CSV guardado en:", ruta_salida)
-   
+
+
+#Menu principal con cual interectua el usuario
+def main():
+    print("Procesador DICOM-Informática 2 ")
+    carpeta = input("Ruta del directorio con archivos DICOM: ").strip()
+
+    if not carpeta:
+        print("No escribiste la ruta. Saliendo.")
+        return
+
+    nombre_csv = input(
+        "Nombre del archivo CSV de salida "
+        "(Enter para usar 'metadatos_dicom.csv'): "
+    ).strip()
+
+    if not nombre_csv:
+        nombre_csv = "metadatos_dicom.csv"
+
+    procesador = ProcesadorDICOM(carpeta)
+
+    # 1. Cargar DICOM
+    procesador.cargar_archivos()
+    if not procesador.datasets:
+        print("No se cargó ningún DICOM. Revisa la ruta.")
+        return
+
+    # 2. Metadatos
+    procesador.extraer_metadatos()
+
+    # 3. Intensidad promedio
+    procesador.calcular_intensidad_promedio()
+
+    # 4. Guardar CSV
+    procesador.guardar_csv(nombre_csv)
+
+
+if __name__ == "__main__":
+    main()
