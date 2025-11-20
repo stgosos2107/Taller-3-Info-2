@@ -13,7 +13,7 @@ import pydicom
 class ProcesadorDICOM:
     COLUMNA_INTENSIDAD = "IntensidadPromdio"  # Se deja igual que en el enunciado del taller
 
-    def _init_(self, carpeta):
+    def __init__(self, carpeta):
         # Carpeta donde están los DICOM
         self.carpeta = carpeta
         self.datasets = []      # Aquí se guardan los DICOM leídos
@@ -109,14 +109,14 @@ class ProcesadorDICOM:
 #Menu principal con cual interectua el usuario
 def main():
     print("Procesador DICOM-Informática 2 ")
-    carpeta = input("Ruta del directorio con archivos DICOM: ").strip()
+    carpeta = input("Ingresa la ruta absoluta del directorio con archivos DICOM: ").strip()
 
     if not carpeta:
         print("No escribiste la ruta. Saliendo.")
         return
 
     nombre_csv = input(
-        "Nombre del archivo CSV de salida "
+        "Indica el nombre del archivo CSV de salida "
         "(Enter para usar 'metadatos_dicom.csv'): "
     ).strip()
 
